@@ -18,7 +18,7 @@ Each set of traces includes its corresponding associated data: plaintext, cipher
 
 ## Acquisition Details
 The devices are encrypting 16-byte random plaintexts using two software AES implementations: unprotected AES and masked AES. During that operation, we measure the power consumption of the device with a Langer EM probe attached to a 20 GS/s digital oscilloscope (LeCroy Waverunner 9104) triggered by the microcontroller, which rises a GPIO signal when the internal computation starts. The high sensibility probe is placed over a decoupling capacitor connected to the power line of the device. Each power trace is formed by 1225 samples (2300 for the masked implementation) taken at 1GHz with 8-bit resolution, corresponding to the first S-box operation. Traces are preprocesed by applying zero mean, standarization, waveform realignment, and a lightweight software lowpass filter. Nevertheless, traces are deliberately quite noisy (due to the nature of EM measurements, variations during the acquisition of the traces, constructive differences between the devices, etc.) to serve to represent realistic experimental use cases.
-![picture](img/Exp_Setup_1.jpg)
+![picture](img/Exp_Setup.jpg)
 
 ## AES implementation
 
@@ -30,7 +30,7 @@ In SCA over software AES implementations on microcontroller, it is common to tar
 
 Following the approach in [[1]](#1), the S-Box operation is masked using two masks: the input mask *m* and the output mask *m'*. At the beginning of each AES encryption, a masked S-Box table *Sm* is computed with the property *Sm(x * m) = S(x) * m*, and used instead of the original table. Generating the masked table is a simple process, as one only has to run through all inputs * x *, look up *S(x)* and store *S(x) * m*:
 
-![picture](img/mask_Sbox.PNG)
+![picture](img/mask_Sbox_pseudocode.jpg)
 
 ## References
 <a id="1">[1]</a> 
