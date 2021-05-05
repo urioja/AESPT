@@ -37,7 +37,7 @@ Following the approach in [[1]](#1), the S-Box operation is masked using two (8-
 
 Regarding the rest of operations, we use two additional (16-byte) masks for the MixColumns operation. The input mask *m* is obtained by generating 16 random bytes and the output mask *m<sub>out</sub>* is obtained by applying MixColumns operation to *m*. The shift rows opeation does not affect the masking in this scheme ase it just moves the btyes of the state to different positions. The following algorithm represents the pseoudocode of the full AES operation (see [[1]](#1)} for the full explanation):
 
-![picture](img/AESPT_MaskedAES_pseudocode.pdf)
+![picture](img/AESPT_MaskedAES_pseudocode.jpg)
 
 ## References
 <a id="1">[1]</a> 
