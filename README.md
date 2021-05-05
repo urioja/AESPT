@@ -26,11 +26,16 @@ As mentioned above, the *AES_PT* dataset includes traces of each clone device pe
 
 **Masked Lookup Table:** In a masked implementation, each intermediate value *v* is concealed by a random value *m* that is called mask, which is different for each execution and unknown by the attacker, such that *v_m = v * m*. This randomizes the intermediate value, mitigating the dependency between the power consumption of the DUT and the processed intermediate value, and providing security against firt-order DPA attacks. 
 
+
+<!---
 In SCA over software AES implementations on microcontroller, it is common to target the S-box output as sensitive intermediate value *v = S-Box(p * k)*. The S-Box operation is a substitution box (lookup table) used in the Rijndael cipher. Since this dataset includes traces corresponding to the first S-box operation only, we will focus on that part of the masking method (see [[1]](#1)} for the full explanation, including the masking of the rest of intermediate values). 
+-->
 
-Following the approach in [[1]](#1), the S-Box operation is masked using two masks: the input mask *m* and the output mask *m'*. At the beginning of each AES encryption, a masked S-Box table *Sm* is computed with the property *Sm(x * m) = S(x) * m*, and used instead of the original table. Generating the masked table is a simple process, as one only has to run through all inputs * x *, look up *S(x)* and store *S(x) * m*:
+In a masked implementation, each intermediate value *v* is concealed by a random value *m* that is called mask, which is different for each execution and unknown by the attacker, such that *v_m = v * m*. This randomizes the intermediate value, mitigating the dependency between the power consumption of the DUT and the processed intermediate value, and providing security against firt-order DPA attacks. 
 
-![picture](img/mask_Sbox_pseudocode.jpg)
+Following the approach in [[1]](#1), the S-Box operation is masked using two (8-bit) masks: the input mask m<sub>in</sub> and the output mask m<sub>out</sub>. At the beginning of each AES encryption, a masked S-Box table *Sm* is computed with the property *Sm(x * m<sub>in</sub>)* = *S(x)* * m<sub>out</sub>, and used instead of the original table. Generating the masked table is a simple process, as one only has to run through all (8-bit) inputs * x *, look up *S(x)* and store *S(x)* * m<sub>out</sub>. 
+
+Regarding the rest of operations, we use two additional (16-byte) masks for the MixColumns operation. The input mask *m* is obtained by generating 16 random bytes and the output mask *m<sub>out</sub>* is obtained by applying MixColumns operation to *m*. The shift rows opeation does not affect the masking in this scheme ase it just moves the btyes of the state to different positions. The following algorithm represents the pseoudocode of the full AES operation (see [[1]](#1)} for the full explanation):
 
 ![picture](img/AESPT_MaskedAES_pseudocode.pdf)
 
