@@ -35,7 +35,7 @@ In a masked implementation, each intermediate value *v* is concealed by a random
 
 Following the approach in [[1]](#1), the S-Box operation is masked using two (8-bit) masks: the input mask m<sub>in</sub> and the output mask m<sub>out</sub>. At the beginning of each AES encryption, a masked S-Box table *Sm* is computed with the property *Sm(x * m<sub>in</sub>)* = *S(x)* * m<sub>out</sub>, and used instead of the original table. Generating the masked table is a simple process, as one only has to run through all (8-bit) inputs * x *, look up *S(x)* and store *S(x)* * m<sub>out</sub>. 
 
-Regarding the rest of operations, we use two additional (16-byte) masks for the MixColumns operation. The input mask *m* is obtained by generating 16 random bytes and the output mask *m<sub>out</sub>* is obtained by applying MixColumns operation to *m*. The shift rows opeation does not affect the masking in this scheme ase it just moves the btyes of the state to different positions. The following algorithm represents the pseoudocode of the full AES operation (see [[1]](#1)} for the full explanation):
+Regarding the rest of the operations, we use two additional (16-byte) masks for the MixColumns operation. The input mask *m* is obtained by generating 16 random bytes and the output mask *m<sub>out</sub>* is obtained by applying MixColumns operation to *m*. The shift rows operation does not affect the masking in this scheme as it just moves the bytes of the state to different positions. The following algorithm represents the pseudocode of the full AES operation (see [[1]](#1) for the full explanation):
 
 ![picture](img/AESPT_MaskedAES_pseudocode.PNG)
 
