@@ -32,6 +32,8 @@ Following the approach in [[1]](#1), the S-Box operation is masked using two mas
 
 ![picture](img/mask_Sbox_pseudocode.jpg)
 
+![picture](img/AESPT_MaskedAES_pseudocode.pdf)
+
 ## References
 <a id="1">[1]</a> 
 S. Mangard, E. Oswald, T. Popp,
